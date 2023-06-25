@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Card from "../../Components/Card";
+import ProductDetail from "../../Components/ProductDetail/Index";
 
 function Home() {
 
@@ -19,6 +20,7 @@ function Home() {
 					<Card key={product.id} product={product}/> 
 				))}
 			</div>
+			<ProductDetail />
 		</div>
 	);
 }
