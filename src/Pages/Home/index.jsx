@@ -1,10 +1,24 @@
+import { useState, useEffect } from "react";
 import Card from "../../Components/Card";
 
 function Home() {
+
+	const [products, setProducts] = useState(null);
+
+	useEffect(() => {
+		fetch("https://api.escuelajs.co/api/v1/products")
+			.then((response) => response.json())
+			.then((data) => setProducts(data));
+	}, []);
+
+
 	return(
 		<div>
-			<h1 className="text-3xl font-bold underline">Home</h1>
-			<Card />
+			<div className="grid grid-cols-4 gap-5 w-full max-w-screen-lg">
+				{products?.map((product) => (
+					<Card key={product.id} product={product}/> 
+				))}
+			</div>
 		</div>
 	);
 }
