@@ -7,6 +7,7 @@ import NotFound from '../NotFound';
 import SignIn from '../SignIn';
 import NavBar from '../../Components/NavBar';
 import Layout from '../../Components/Layout/Layout';
+import { ShopiContext } from '../../Context/ShopiContext';
 import './App.css'
 
 
@@ -26,12 +27,14 @@ const AppRoutes = () => {
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <NavBar />
-        <Layout>
-          <AppRoutes />
-        </Layout>
-      </BrowserRouter>
+      <ShopiContext>
+        <BrowserRouter>
+          <NavBar />
+          <Layout>
+            <AppRoutes />
+          </Layout>
+        </BrowserRouter>
+      </ShopiContext>
     </>
   )
 }
