@@ -6,12 +6,12 @@ import { useShopiContext } from "../../Context/ShopiContext"
 
 const NavBar = () => {
 
-	const { counter } = useShopiContext();
+	const { productCounter } = useShopiContext();
 	const activeStyle = 'underline underline-offset-4';
 	const active = ({ isActive }) => isActive ? activeStyle : '';
 
 	return(
-		<nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light">
+		<nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light bg-white border-b">
 
 			<ul className="flex items-center gap-3">
 				<li className="text-lg font-semibold">
@@ -90,7 +90,7 @@ const NavBar = () => {
 				</li>
 				<li className="flex">
 					<ShoppingCartIcon className="h-5 w-5 text-black" />
-					<p>{counter}</p>
+					<p>{productCounter}</p>
 				</li>
 			</ul>
 

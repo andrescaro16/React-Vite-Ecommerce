@@ -5,17 +5,28 @@ const Context = createContext();
 
 export const ShopiContext = ({children}) => {
 
-	const [counter, setCounter] = useState(0);
-
-	const increment = () => {
-		setCounter(counter + 1);
+	// Shopping Cart · Product counter
+	const [productCounter, setProductCounter] = useState(0);
+	const incrementProductCounter = () => {
+		setProductCounter(productCounter + 1);
 	}
+	
+	// Product Detail · Open or Close
+	const [isProductDetailOpen, setIsProductDetailOpen] = useState(false);
+	const toggleProductDetail = () => setIsProductDetailOpen(!isProductDetailOpen);
+
+	// Product Detail · Product to show
+	const [productToShow, setProductToShow] = useState({});
+
 
 	return (
 		<Context.Provider value={{
-			counter,
-			setCounter,
-			increment,
+			productCounter,
+			incrementProductCounter,
+			isProductDetailOpen,
+			toggleProductDetail,
+			productToShow,
+			setProductToShow,
 		}}>
 			{children}
 		</Context.Provider>
