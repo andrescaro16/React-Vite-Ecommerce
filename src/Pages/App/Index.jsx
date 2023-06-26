@@ -7,6 +7,7 @@ import NotFound from '../NotFound';
 import SignIn from '../SignIn';
 import NavBar from '../../Components/NavBar';
 import Layout from '../../Components/Layout/Layout';
+import CheckoutSideMenu from '../../Components/CheckoutSideMenu/Index';
 import { ShopiContext } from '../../Context/ShopiContext';
 import './App.css'
 
@@ -32,6 +33,7 @@ function App() {
           <NavBar />
           <Layout>
             <AppRoutes />
+            <CheckoutSideMenu />
           </Layout>
         </BrowserRouter>
       </ShopiContext>

@@ -3,14 +3,14 @@ import { useShopiContext } from "../../Context/ShopiContext";
 
 const ProductDetail = () => {
 
-	const { isProductDetailOpen, toggleProductDetail, productToShow } = useShopiContext();
+	const { isProductDetailOpen, closeProductDetail, productToShow } = useShopiContext();
 
 	return (
 		<>
 			<aside className={`${isProductDetailOpen ? 'flex' : 'hidden'} flex-col w-[360px] h-[calc(100%-68px)] top-[69px] border border-black rounded-lg fixed right-0 bg-white p-6`}>
 				<div className="flex justify-between items-center">
 					<h2>Detail</h2>
-					<button onClick={toggleProductDetail}>
+					<button onClick={closeProductDetail}>
 						<XMarkIcon className="h-6 w-6 text-black" />
 					</button>
 				</div>
