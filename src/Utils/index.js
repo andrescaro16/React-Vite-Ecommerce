@@ -4,6 +4,6 @@
  * @returns {Number} total: this is the total price of all the products in the cart
  */
 export const totalPrice = (products) => {
-    const total = products.reduce((acc, product) => acc + product.price, 0);
+    const total = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
     return total;
 }

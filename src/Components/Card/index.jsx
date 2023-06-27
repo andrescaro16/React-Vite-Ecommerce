@@ -3,17 +3,16 @@ import { useShopiContext } from "../../Context/ShopiContext";
 
 const Card = ({product}) => {
 
-	const { incrementProductCounter, cart, setCart, openProductDetail, setProductToShow, openCheckoutSideMenu } = useShopiContext();
+	const { cart, addToCart, openProductDetail, setProductToShow, openCheckoutSideMenu } = useShopiContext();
 
 	const showProduct = () => {
 		openProductDetail();
 		setProductToShow(product);
 	}
 
-	const addToCart = (event) => {
+	const addProductToCart = (event) => {
 		event.stopPropagation();
-		setCart([...cart, product]);
-		incrementProductCounter();
+		addToCart(product);
 		openCheckoutSideMenu();
 	}
 
@@ -26,7 +25,7 @@ const Card = ({product}) => {
 				</button>
 			)
 			: (
-				<button className="absolute top-1 right-1 w-5 h-5 flex justify-center items-center bg-white rounded-full font-medium" onClick={addToCart}>
+				<button className="absolute top-1 right-1 w-5 h-5 flex justify-center items-center bg-white rounded-full font-medium" onClick={addProductToCart}>
 					<PlusIcon className='h-5 w-5 text-black'/>
 				</button>
 			)

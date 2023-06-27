@@ -19,7 +19,7 @@ const CheckoutSideMenu = () => {
 				<div className="mt-7">
 					{isCheckoutSideMenuOpen ? (
 						cart.map((product) => (
-							<OrderCard key={product.id} id={product.id} title={product.title} price={product.price} imageURL={product.images[0]} />
+							<OrderCard key={product.id} id={product.id} title={product.title} imageURL={product.images[0]} />
 						))
 					) : null}
 				</div>
