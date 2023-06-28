@@ -26,6 +26,11 @@ export const ShopiContext = ({children}) => {
 		}
 	}
 
+	/**
+	 * @param {Number} id : Product ID 
+	 * @param {Number} quantity : Quantity to delete (if -1, delete all)
+	 * @returns : void
+	 */
 	const deleteProductFromCart = (id, quantity) => {
 		if(quantity === -1){
 			const filteredProducts = cart.filter(product => product.id !== id);
@@ -40,6 +45,8 @@ export const ShopiContext = ({children}) => {
 			}].sort((a, b) => a.title.localeCompare(b.title)));
 		}
 	}
+
+	const emptyCart = () => setCart([]);
 
 	useEffect(() => {
 		const counter = cart.reduce((acc, product) => acc + product.quantity, 0);
@@ -72,6 +79,11 @@ export const ShopiContext = ({children}) => {
 	const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false);
 
 
+	// ---------------------------------------[Order]----------------------------------------
+
+	const [order, setOrder] = useState([]);
+
+
 	return (
 		<Context.Provider value={{
 			productCounter,
@@ -86,6 +98,9 @@ export const ShopiContext = ({children}) => {
 			cart,
 			addToCart,
 			deleteProductFromCart,
+			emptyCart,
+			order,
+			setOrder,
 		}}>
 			{children}
 		</Context.Provider>
