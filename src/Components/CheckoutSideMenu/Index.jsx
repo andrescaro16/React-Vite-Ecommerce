@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import OrderCard from "../OrderCard/index";
 import { totalPrice } from "../../Utils";
@@ -16,7 +17,6 @@ const CheckoutSideMenu = () => {
 		}
 		setOrder([...order, newOrder]);
 		emptyCart();
-		console.log(order);
 	}
 
 	return (
@@ -31,7 +31,7 @@ const CheckoutSideMenu = () => {
 				<div className="mt-7 flex-auto overflow-y-scroll no-scrollbar">
 					{isCheckoutSideMenuOpen ? (
 						cart.map((product) => (
-							<OrderCard key={product.id} id={product.id} title={product.title} imageURL={product.images[0]} />
+							<OrderCard key={product.id} id={product.id} title={product.title} imageURL={product.images[0]} state="checkoutSideMenu" />
 						))
 					) : null}
 				</div>
@@ -40,7 +40,9 @@ const CheckoutSideMenu = () => {
 						<span className="font-normal text-lg">Total:</span>
 						<span className="font-medium text-lg">${totalPrice(cart)}</span>
 					</p>
-					<button onClick={onCheckout} className="w-full h-10 p-1 bg-black text-white rounded-lg">Checkout</button>
+					<Link to="/my-order/last">
+						<button onClick={onCheckout} className="w-full h-10 p-1 bg-black text-white rounded-lg">Checkout</button>
+					</Link>
 				</div>
 			</aside>
 		</>
