@@ -6,9 +6,14 @@ import { useShopiContext } from "../../Context/ShopiContext"
 
 const NavBar = () => {
 
-	const { productCounter } = useShopiContext();
+	const { productCounter, isCheckoutSideMenuOpen ,openCheckoutSideMenu, closeCheckoutSideMenu } = useShopiContext();
 	const activeStyle = 'underline underline-offset-4';
 	const active = ({ isActive }) => isActive ? activeStyle : '';
+
+	const aside = () => {
+		isCheckoutSideMenuOpen ? closeCheckoutSideMenu() : openCheckoutSideMenu();
+	}
+
 
 	return(
 		<nav className="flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light bg-white border-b">
@@ -88,7 +93,7 @@ const NavBar = () => {
 						Sign In
 					</NavLink>
 				</li>
-				<li className="flex">
+				<li className="flex cursor-pointer" onClick={aside}>
 					<ShoppingCartIcon className="h-5 w-5 text-black" />
 					<p>{productCounter}</p>
 				</li>
