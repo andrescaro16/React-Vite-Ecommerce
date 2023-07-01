@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Card from "../../Components/Card";
 import ProductDetail from "../../Components/ProductDetail/Index";
 import { useShopiContext } from "../../Context/ShopiContext";
@@ -5,6 +7,16 @@ import { useShopiContext } from "../../Context/ShopiContext";
 function Home() {
 
 	const { products, searchByTitle, setSearchByTitle, filteredProducts } = useShopiContext();
+	const { category } = useParams();
+	const [searchByCategory, setSearchByCategory] = useState("");
+
+	useEffect(() => {
+		category ? setSearchByCategory(category) : setSearchByCategory("");
+	}, [category]);
+
+	Array.prototype.filterByCategory = function() {
+		return this.filter(product => (product.category.name).toLowerCase().includes(searchByCategory.toLocaleLowerCase()));
+	}
 
 	const searchingProducts = (event) => {
 		setSearchByTitle(event.target.value);
@@ -12,15 +24,23 @@ function Home() {
 
 	const renderView = () => {
 		if(!searchByTitle) {
-			return (
-				products?.map((product) => (
-					<Card key={product.id} product={product}/> 
-				))
-			);
+			if(products?.filterByCategory().length > 0) {
+				return (
+					products?.filterByCategory().map((product) => (
+						<Card key={product.id} product={product}/> 
+					))
+				);
+			} else {
+				return (
+					<div className="flex flex-col w-[450%] items-center justify-center gap-6 mb-16">
+						<h1 className="text-xl font-bold">No products found</h1>
+					</div>
+				);
+			}
 		} else {
 			if (filteredProducts.length > 0) {
 				return (
-					filteredProducts?.map((product) => (
+					filteredProducts?.filterByCategory().map((product) => (
 						<Card key={product.id} product={product}/> 
 					))
 				);
