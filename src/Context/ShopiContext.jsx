@@ -5,6 +5,29 @@ const Context = createContext();
 
 export const ShopiContext = ({children}) => {
 
+	// ------------------------------------[Products]----------------------------------------
+	
+	const [products, setProducts] = useState(null);
+	const [searchByTitle, setSearchByTitle] = useState("");
+	const [filteredProducts, setFilteredProducts] = useState([]);
+
+	useEffect(() => {
+		fetch("https://api.escuelajs.co/api/v1/products")
+			.then((response) => response.json())
+			.then((data) => setProducts(data));
+	}, []);
+
+	const filteringProducts = () => {
+		if(!products) return [];
+		return products.filter(product => product.title.toLowerCase().includes(searchByTitle.toLowerCase()));
+	}
+
+	useEffect(() => {
+		const filteredProducts = filteringProducts();
+		setFilteredProducts(filteredProducts);
+	}, [searchByTitle]);
+
+
 	// ----------------------------------[Shopping Cart]-------------------------------------
 
 	const [cart, setCart] = useState([]);
@@ -86,6 +109,8 @@ export const ShopiContext = ({children}) => {
 
 	return (
 		<Context.Provider value={{
+			products,
+			setProducts,
 			productCounter,
 			isProductDetailOpen,
 			openProductDetail,
@@ -101,6 +126,9 @@ export const ShopiContext = ({children}) => {
 			emptyCart,
 			orders,
 			setOrders,
+			searchByTitle,
+			setSearchByTitle,
+			filteredProducts,
 		}}>
 			{children}
 		</Context.Provider>
