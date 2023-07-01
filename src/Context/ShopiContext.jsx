@@ -81,7 +81,7 @@ export const ShopiContext = ({children}) => {
 
 	// ---------------------------------------[Order]----------------------------------------
 
-	const [order, setOrder] = useState([]);
+	const [orders, setOrders] = useState([]);
 
 
 	return (
@@ -99,8 +99,8 @@ export const ShopiContext = ({children}) => {
 			addToCart,
 			deleteProductFromCart,
 			emptyCart,
-			order,
-			setOrder,
+			orders,
+			setOrders,
 		}}>
 			{children}
 		</Context.Provider>

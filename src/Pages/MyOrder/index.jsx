@@ -1,18 +1,29 @@
+import { Link } from "react-router-dom";
+import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { useShopiContext } from "../../Context/ShopiContext";
 import OrderCard from "../../Components/OrderCard";
 
 function MyOrder() {
 
-	const { order } = useShopiContext();
-	console.log(order?.slice(-1)[0].cart);
+	const { orders } = useShopiContext();
+	let id = window.location.pathname.split("/")[2];
+	if(id === "last") id = orders.length - 1;
+
 
 	return(
-		<div>
-			<h1 className="text-3xl font-bold underline">MyOrder</h1>
-			<div className="w-96 mt-7">
+		<div className="flex flex-col justify-center">
+			<div className="flex w-96 justify-center items-center relative my-8">
+				<Link to="/my-orders">
+					<button className="flex justify-center items-center">
+						<ChevronLeftIcon className="h-6 w-6 text-black absolute left-0" />
+					</button>
+				</Link>
+				<h1 className="text-xl font-bold">My order</h1>
+			</div>
+			<div className="w-96">
 				{(
-					order?.slice(-1)[0].cart.map((product) => (
-						<OrderCard key={product.id} id={product.id} title={product.title} imageURL={product.images[0]} state="order" price={product.price} />
+					orders?.[id].cart.map((product) => (
+						<OrderCard key={product.id} id={product.id} title={product.title} imageURL={product.images[0]} state="order" price={product.price} numProduct={product.quantity} />
 					))
 				)}
 			</div>

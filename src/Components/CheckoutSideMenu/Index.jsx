@@ -6,17 +6,18 @@ import { useShopiContext } from "../../Context/ShopiContext";
 
 const CheckoutSideMenu = () => {
 
-	const { isCheckoutSideMenuOpen, closeCheckoutSideMenu, cart, emptyCart, order, setOrder } = useShopiContext();
+	const { isCheckoutSideMenuOpen, closeCheckoutSideMenu, cart, emptyCart, orders, setOrders } = useShopiContext();
 
 	const onCheckout = () => {
 		const newOrder = {
-			id: order.length + 1,
+			id: orders.length,
 			cart,
 			totalPrice: totalPrice(cart),
 			date: new Date().toLocaleDateString(),
 		}
-		setOrder([...order, newOrder]);
+		setOrders([...orders, newOrder]);
 		emptyCart();
+		closeCheckoutSideMenu();
 	}
 
 	return (

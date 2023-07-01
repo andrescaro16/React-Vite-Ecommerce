@@ -2,7 +2,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useShopiContext } from "../../Context/ShopiContext";
 
 
-const OrderCard = ({id, title, imageURL, state, price}) => {
+const OrderCard = ({id, title, imageURL, state, price, numProduct}) => {
 
     const { cart, addToCart, deleteProductFromCart } = useShopiContext();
 
@@ -29,6 +29,9 @@ const OrderCard = ({id, title, imageURL, state, price}) => {
                     <figure className="w-16 h-16">
                         <img src={imageURL} alt={title} className="w-full h-full rounded-lg object-cover" />
                     </figure>
+                    <div className="flex items-center mx-1">
+                        <p className="font-light text-sm">{numProduct}</p>
+                    </div>
                     <div className="flex flex-col items-start gap-1">
                         <p className="font-light text-sm">{title}</p>
                         {state === "checkoutSideMenu" ? (
