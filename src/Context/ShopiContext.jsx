@@ -122,7 +122,7 @@ export const ShopiContext = ({children}) => {
 		saveItem: saveAccount,
 		loading: loadingAccount,
 		error: errorAccount,
-	} = useLocalStorage("account", {name: "Jeje", email: ""});
+	} = useLocalStorage("account", {});
 
 
 	return (
