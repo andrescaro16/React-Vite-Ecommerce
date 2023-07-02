@@ -6,12 +6,64 @@ import { useShopiContext } from "../../Context/ShopiContext"
 
 const NavBar = () => {
 
-	const { productCounter, isCheckoutSideMenuOpen ,openCheckoutSideMenu, closeCheckoutSideMenu } = useShopiContext();
+	const { productCounter, isCheckoutSideMenuOpen ,openCheckoutSideMenu, closeCheckoutSideMenu, signOut, saveSignOut } = useShopiContext();
 	const activeStyle = 'underline underline-offset-4';
 	const active = ({ isActive }) => isActive ? activeStyle : '';
 
 	const aside = () => {
 		isCheckoutSideMenuOpen ? closeCheckoutSideMenu() : openCheckoutSideMenu();
+	}
+
+	const signOutHandler = () => {
+		saveSignOut(!signOut);
+	}
+
+	const renderView = () => {
+		return(signOut ? (
+			<>
+				<li>
+					<NavLink
+						to='/sign-in'
+						className={active}
+						onClick={signOutHandler}>
+						Sign In
+					</NavLink>
+				</li>
+			</>
+		)
+		: (
+			<>
+				<li className="text-black/60">
+					andrescaro@gmail.com
+				</li>
+				<li>
+					<NavLink
+						to='/my-orders'
+						className={active}>
+						My Orders
+					</NavLink>
+				</li>
+				<li>
+					<NavLink
+						to='/my-account'
+						className={active}>
+						My Account
+					</NavLink>
+				</li>
+				<li>
+					<NavLink
+						to='/sign-in'
+						className={active}
+						onClick={signOutHandler}>
+						Sign Out
+					</NavLink>
+				</li>
+				<li className="flex cursor-pointer" onClick={aside}>
+					<ShoppingCartIcon className="h-5 w-5 text-black" />
+					<p>{productCounter}</p>
+				</li>
+			</>
+		))
 	}
 
 
@@ -69,34 +121,7 @@ const NavBar = () => {
 			</ul>
 
 			<ul className="flex items-center gap-3">
-				<li className="text-black/60">
-					andrescaro@gmail.com
-				</li>
-				<li>
-					<NavLink
-						to='/my-orders'
-						className={active}>
-						My Orders
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
-						to='/my-account'
-						className={active}>
-						My Account
-					</NavLink>
-				</li>
-				<li>
-					<NavLink
-						to='/sign-in'
-						className={active}>
-						Sign In
-					</NavLink>
-				</li>
-				<li className="flex cursor-pointer" onClick={aside}>
-					<ShoppingCartIcon className="h-5 w-5 text-black" />
-					<p>{productCounter}</p>
-				</li>
+				{renderView()}
 			</ul>
 
 		</nav>

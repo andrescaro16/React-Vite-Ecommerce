@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import useLocalStorage from "../Hooks/useLocalStorage/useLocalStorage";
 
 const Context = createContext();
 
@@ -107,6 +108,23 @@ export const ShopiContext = ({children}) => {
 	const [orders, setOrders] = useState([]);
 
 
+	//------------------------------------[useLocalStorage]----------------------------------
+
+	const {
+		item: signOut,
+		saveItem: saveSignOut,
+		loading: loadingSignOut,
+		error: errorSignOut,
+	} = useLocalStorage("signOut", true);
+
+	const {
+		item: account,
+		saveItem: saveAccount,
+		loading: loadingAccount,
+		error: errorAccount,
+	} = useLocalStorage("account", {name: "Jeje", email: ""});
+
+
 	return (
 		<Context.Provider value={{
 			products,
@@ -129,6 +147,14 @@ export const ShopiContext = ({children}) => {
 			searchByTitle,
 			setSearchByTitle,
 			filteredProducts,
+			signOut,
+			saveSignOut,
+			loadingSignOut,
+			errorSignOut,
+			account,
+			saveAccount,
+			loadingAccount,
+			errorAccount,
 		}}>
 			{children}
 		</Context.Provider>
