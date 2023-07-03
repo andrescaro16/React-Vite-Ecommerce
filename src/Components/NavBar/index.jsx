@@ -107,7 +107,7 @@ const NavBar = () => {
 				</li>
 				<li>
 					<NavLink
-						to='/furnitures'
+						to='/furniture'
 						className={active}>
 						Furnitures
 					</NavLink>
