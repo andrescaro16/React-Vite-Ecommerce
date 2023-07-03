@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import OrderCard from "../OrderCard/index";
-import { totalPrice } from "../../Utils";
+import { totalPrice } from "../../Utils/functions";
 import { useShopiContext } from "../../Context/ShopiContext";
 
 const CheckoutSideMenu = () => {
