@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useShopiContext } from '../../Context/ShopiContext';
 
 
@@ -8,10 +8,25 @@ const SignIn = () => {
 	const { saveSignOut, account, saveAccount } = useShopiContext();
 	const [view, setView] = useState("sign-in");
 	const [hasAccount, setHasAccount] = useState(false);
+	const form = useRef(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		(account.name && account.email && account.password) ? setHasAccount(true) : setHasAccount(false);
 	}, [account]);
+
+	const onSignUpSubmit = () => {
+		const formData = new FormData(form.current);
+		const validation = form.current.checkValidity();
+		if(validation){
+			const data = Object.fromEntries(formData);
+			saveAccount(data);
+			saveSignOut(false);
+			return navigate("/");
+		} else{
+			return;
+		}
+	}
 
 	const signOutHandler = () => {
 		saveSignOut(false);
@@ -27,7 +42,7 @@ const SignIn = () => {
 			</p>
 			<p className="flex w-full gap-1 justify-start mb-8">
 				<span>Password:</span>
-				<span className="font-medium">{account?.password}</span>
+				<span className="font-medium">{account?.password ? "**********" : null}</span>
 			</p>
 			<p className="underline underline-offset-4 mb-3 cursor-pointer select-none">
 				Forgot my password
@@ -56,6 +71,31 @@ const SignIn = () => {
 		return(
 			<>
 			<h1 className="text-3xl font-bold mb-8">Shopi Sign Up</h1>
+			<form ref={form} className="flex flex-col w-80">
+				<div className="flex flex-col mb-2">
+					<label htmlFor="name" className="mb-1">Your name</label>
+					<input type="text" name="name" placeholder="Name"
+					className="border border-black rounded-lg px-2 py-2 w-full focus:outline-none select-none"
+					required />
+				</div>
+				<div className="flex flex-col mb-2">
+					<label htmlFor="email" className="mb-1">Your email</label>
+					<input type="email" name="email" placeholder="email@example.com"
+					className="border border-black rounded-lg px-2 py-2 w-full focus:outline-none select-none"
+					required />
+				</div>
+				<div className="flex flex-col mb-8">
+					<label htmlFor="password" className="mb-1">Your password</label>
+					<input type="password" name="password" placeholder="Password"
+					className="border border-black rounded-lg px-2 py-2 w-full focus:outline-none select-none"
+					required />
+				</div>
+				<button
+					className="flex flex-col w-full justify-center items-center border border-black bg-black text-white p-2 rounded-lg hover:enabled:bg-white hover:enabled:text-black"
+					onClick={onSignUpSubmit}>
+					Sign up
+				</button>
+			</form>
 			</>
 		);
 	}
