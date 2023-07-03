@@ -6,7 +6,7 @@ import { useShopiContext } from "../../Context/ShopiContext"
 
 const NavBar = () => {
 
-	const { productCounter, isCheckoutSideMenuOpen ,openCheckoutSideMenu, closeCheckoutSideMenu, signOut, saveSignOut } = useShopiContext();
+	const { productCounter, isCheckoutSideMenuOpen ,openCheckoutSideMenu, closeCheckoutSideMenu, signOut, saveSignOut, account } = useShopiContext();
 	const activeStyle = 'underline underline-offset-4';
 	const active = ({ isActive }) => isActive ? activeStyle : '';
 
@@ -24,17 +24,25 @@ const NavBar = () => {
 				<li>
 					<NavLink
 						to='/sign-in'
-						className={active}
-						onClick={signOutHandler}>
+						className={active}>
 						Sign In
 					</NavLink>
+				</li>
+				<li className="flex cursor-pointer" onClick={aside}>
+					<ShoppingCartIcon className="h-5 w-5 text-black" />
+					<p>{productCounter}</p>
 				</li>
 			</>
 		)
 		: (
 			<>
 				<li className="text-black/60">
-					andrescaro@gmail.com
+					{
+						`Welcome ${
+						(account.name).indexOf(" ") === -1
+						? account.name
+						: (account.name).substring(0, (account.name).indexOf(" "))}`
+					}
 				</li>
 				<li>
 					<NavLink
